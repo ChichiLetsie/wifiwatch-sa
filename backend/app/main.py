@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
 from pathlib import Path
+
 
 app = FastAPI(
     title="WiFiWatch SA API",
@@ -26,3 +28,7 @@ if frontend_dir.exists():
 @app.get("/api/health", tags=["Health"])
 def health_check():
     return {"status": "ok"}
+
+@app.get("/", include_in_schema=False)
+def root_redirect():
+    return RedirectResponse(url="/static/index.html")
