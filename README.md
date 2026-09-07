@@ -18,5 +18,11 @@ Read our public transparency commitment in [docs/ETHICS.md](docs/ETHICS.md).
 ```bash
 cd backend
 python3 -m venv venv
-source venv/bin/activate
+source .venv/bin/activate
 pip install -r requirements.txt
+
+python3 init_db.py
+uvicorn app.main:app --reload --port 8000
+
+python3 -m backend.synthetic_generator --days 7 --events-per-day 200
+python3 -m synthetic_generator --days 7 --events-per-day 200

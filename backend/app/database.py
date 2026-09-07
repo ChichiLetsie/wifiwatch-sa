@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine # connects raw connection bewteen python and database
 from sqlalchemy.orm import declarative_base, sessionmaker
-from app.config import SQLITE_DB_PATH
+from .config import SQLITE_DB_PATH
 
 # SQLite-specific connect args for thread safety in multi-threaded environments
 engine = create_engine(
@@ -20,3 +20,5 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
