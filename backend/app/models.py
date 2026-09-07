@@ -58,7 +58,9 @@ class ScanEvent(Base):
     ssid = Column(String(64), nullable=False, index=True)
     bssid = Column(String(17), nullable=False, index=True)
     encryption_type = Column(String(32), nullable=False)
-    signal_strength = Column(Integer, nullable=False)  # dBm, e.g., -65
+    signal_strength = Column(Integer, nullable=False)  # dBm, e.g. -65
+    gateway_ip = Column(String(45), nullable=True)      # Observed local gateway IP (e.g. 192.168.1.1)
+    gateway_mac = Column(String(17), nullable=True)     # Resolved gateway MAC address via ARP
     is_synthetic = Column(Boolean, default=True, nullable=False)
 
     location = relationship("Location", back_populates="scan_events")
@@ -75,7 +77,7 @@ class Anomaly(Base):
         nullable=False,
         index=True,
     )
-    confidence_score = Column(Float, nullable=False)  # Scale: 0.0 to 1.0
+    confidence_score = Column(Float, nullable=False)  # 0.0 to 1.0
     description = Column(Text, nullable=False)
 
     scan_event = relationship("ScanEvent", back_populates="anomalies")
